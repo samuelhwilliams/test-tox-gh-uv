@@ -27,7 +27,7 @@ python =
     3.11 = 3.11
     3.10 = 3.10
 
-[env_run_base]
+[testenv]
 pass_env = ["PYTEST_*", "TOX_GH_MAJOR_MINOR"]
 commands = pytest
 """
