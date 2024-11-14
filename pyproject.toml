@@ -1,0 +1,27 @@
+[project]
+name = "test-tox-gh-uv"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Samuel Williams", email = "samuelhwilliams@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+env_list = py3.{10,11,12,13}
+"""
+
+[tool.tox.gh.python]
+"3.13" = ["3.13"]
+"3.12" = ["3.12"]
+"3.11" = ["3.11"]
+"3.10" = ["3.10"]

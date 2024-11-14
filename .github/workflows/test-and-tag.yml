@@ -1,0 +1,48 @@
+name: Test and Tag
+
+
+# Runs on every push to run the unit tests.
+
+# Additionally, if on main, reads the current version from setup.py and then creates a new tag and release named
+# for that version.
+# If a tag already exists with that name, the Create Release step is skipped.
+
+
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - "**/README.md"
+
+jobs:
+  test:
+    name: test with ${{ matrix.env }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        env:
+          - "3.13"
+          - "3.12"
+          - "3.11"
+          - "3.10"
+        os:
+          - ubuntu-latest
+          - macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v3
+      - name: Install tox
+        run: uv tool install --python-preference only-managed --python 3.13 tox --with tox-uv --with tox-gh
+      - name: Install Python
+        if: matrix.env != '3.13'
+        run: uv python install --python-preference only-managed ${{ matrix.env }}
+      - name: Setup test suite
+        run: tox run -vv --notest --skip-missing-interpreters false
+        env:
+          TOX_GH_MAJOR_MINOR: ${{ matrix.env }}
+      - name: Run test suite
+        run: tox run --skip-pkg-install
+        env:
+          TOX_GH_MAJOR_MINOR: ${{ matrix.env }}
