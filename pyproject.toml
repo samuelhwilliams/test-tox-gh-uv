@@ -29,9 +29,7 @@ python =
 
 [env_run_base]
 pass_env = ["PYTEST_*", "TOX_GH_MAJOR_MINOR"]
-commands = [
-    ["pytest"]
-]
+commands = pytest
 """
 
 [dependency-groups]
