@@ -18,10 +18,11 @@ build-backend = "hatchling.build"
 legacy_tox_ini = """
 [tox]
 env_list = py3.{10,11,12,13}
-"""
 
-[tool.tox.gh.python]
-"3.13" = ["3.13"]
-"3.12" = ["3.12"]
-"3.11" = ["3.11"]
-"3.10" = ["3.10"]
+[gh]
+python =
+    3.13 = 3.13
+    3.12 = 3.12
+    3.11 = 3.11
+    3.10 = 3.10
+"""
