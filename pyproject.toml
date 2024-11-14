@@ -25,4 +25,13 @@ python =
     3.12 = 3.12
     3.11 = 3.11
     3.10 = 3.10
+
+[testenv]
+commands = uv run pytest
+runner = uv-venv-lock-runner
 """
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.3",
+]
